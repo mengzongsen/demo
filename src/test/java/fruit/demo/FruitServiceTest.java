@@ -32,41 +32,41 @@ class FruitServiceTest {
 
         @Test
         @DisplayName("正例：正常购买")
-        void positive_basic() {
+        void positiveBasic() {
             // 2斤苹果 + 3斤草莓 = 16 + 39 = 55
             assertEquals(new BigDecimal("55.00"), fruitService.buyAppleAndStrawberry(2, 3));
         }
 
         @Test
         @DisplayName("正例：只买苹果")
-        void positive_onlyApple() {
+        void positiveOnlyApple() {
             // 5斤苹果 = 5 * 8 = 40
             assertEquals(new BigDecimal("40.00"), fruitService.buyAppleAndStrawberry(5, 0));
         }
 
         @Test
         @DisplayName("正例：只买草莓")
-        void positive_onlyStrawberry() {
+        void positiveOnlyStrawberry() {
             // 4斤草莓 = 4 * 13 = 52
             assertEquals(new BigDecimal("52.00"), fruitService.buyAppleAndStrawberry(0, 4));
         }
 
         @Test
         @DisplayName("边界值：斤数全为0")
-        void boundary_zeroWeight() {
+        void boundaryZeroWeight() {
             assertEquals(new BigDecimal("0.00"), fruitService.buyAppleAndStrawberry(0, 0));
         }
 
         @Test
         @DisplayName("边界值：各买1斤（最小正整数）")
-        void boundary_minPositive() {
+        void boundaryMinPositive() {
             // 8 + 13 = 21
             assertEquals(new BigDecimal("21.00"), fruitService.buyAppleAndStrawberry(1, 1));
         }
 
         @Test
         @DisplayName("边界值：大数量购买")
-        void boundary_largeWeight() {
+        void boundaryLargeWeight() {
             // 1000 * 8 + 1000 * 13 = 21000
             assertEquals(new BigDecimal("21000.00"), fruitService.buyAppleAndStrawberry(1000, 1000));
         }
@@ -79,34 +79,34 @@ class FruitServiceTest {
 
         @Test
         @DisplayName("正例：正常购买三种水果")
-        void positive_basic() {
+        void positiveBasic() {
             // 2 * 8 + 3 * 13 + 20 = 16 + 39 + 20 = 75
             assertEquals(new BigDecimal("75.00"), fruitService.buyAppleStrawberryAndMango(2, 3, 1));
         }
 
         @Test
         @DisplayName("正例：只买芒果")
-        void positive_onlyMango() {
+        void positiveOnlyMango() {
             // 20 * 3 = 60
             assertEquals(new BigDecimal("60.00"), fruitService.buyAppleStrawberryAndMango(0, 0, 3));
         }
 
         @Test
         @DisplayName("边界值：斤数全为0")
-        void boundary_zeroWeight() {
+        void boundaryZeroWeight() {
             assertEquals(new BigDecimal("0.00"), fruitService.buyAppleStrawberryAndMango(0, 0, 0));
         }
 
         @Test
         @DisplayName("边界值：各买1斤（最小正整数）")
-        void boundary_minPositive() {
+        void boundaryMinPositive() {
             // 8 + 13 + 20 = 41
             assertEquals(new BigDecimal("41.00"), fruitService.buyAppleStrawberryAndMango(1, 1, 1));
         }
 
         @Test
         @DisplayName("反例：芒果斤数为0，等同于只有苹果草莓")
-        void negative_mangoZero() {
+        void negativeMangoZero() {
             // 与 buyAppleAndStrawberry(2,3) 结果一致
             assertEquals(fruitService.buyAppleAndStrawberry(2, 3), fruitService.buyAppleStrawberryAndMango(2, 3, 0));
         }
@@ -119,41 +119,41 @@ class FruitServiceTest {
 
         @Test
         @DisplayName("正例：正常购买，草莓8折")
-        void positive_basic() {
+        void positiveBasic() {
             // 2 * 8 + 3 * 13 * 0.8 + 20 = 16 + 31.2 + 20 = 67.2
             assertEquals(new BigDecimal("67.20"), fruitService.buyAppleStrawberryAndMangoWithDiscount(2, 3, 1));
         }
 
         @Test
         @DisplayName("正例：只买草莓，验证折扣生效")
-        void positive_strawberryDiscount() {
+        void positiveStrawberryDiscount() {
             // 10 * 13 * 0.8 = 104
             assertEquals(new BigDecimal("104.00"), fruitService.buyAppleStrawberryAndMangoWithDiscount(0, 10, 0));
         }
 
         @Test
         @DisplayName("反例：不买草莓时折扣不影响结果")
-        void negative_noStrawberry() {
+        void negativeNoStrawberry() {
             // 只买苹果和芒果，折扣无影响：2 * 8 + 20 = 36
             assertEquals(new BigDecimal("36.00"), fruitService.buyAppleStrawberryAndMangoWithDiscount(2, 0, 1));
         }
 
         @Test
         @DisplayName("边界值：斤数全为0")
-        void boundary_zeroWeight() {
+        void boundaryZeroWeight() {
             assertEquals(new BigDecimal("0.00"), fruitService.buyAppleStrawberryAndMangoWithDiscount(0, 0, 0));
         }
 
         @Test
         @DisplayName("边界值：只买1斤草莓（最小折扣金额）")
-        void boundary_minDiscountAmount() {
+        void boundaryMinDiscountAmount() {
             // 13 * 0.8 = 10.4
             assertEquals(new BigDecimal("10.40"), fruitService.buyAppleStrawberryAndMangoWithDiscount(0, 1, 0));
         }
 
         @Test
         @DisplayName("对比：C比B便宜，验证折扣确实生效")
-        void compare_discountDifference() {
+        void compareDiscountDifference() {
             BigDecimal priceB = fruitService.buyAppleStrawberryAndMango(2, 3, 1);
             BigDecimal priceC = fruitService.buyAppleStrawberryAndMangoWithDiscount(2, 3, 1);
             // 折扣差额 = 3 * 13 * 0.2 = 7.8
@@ -168,21 +168,21 @@ class FruitServiceTest {
 
         @Test
         @DisplayName("正例：正常购买，触发满减")
-        void positive_basicWithReduction() {
+        void positiveBasicWithReduction() {
             // 5 * 8 + 5 * 13 + 2 * 20 = 40 + 65 + 40 = 145，满100减10 = 135
             assertEquals(new BigDecimal("135.00"), fruitService.buyAppleStrawberryAndMangoWithFullReduction(5, 5, 2));
         }
 
         @Test
         @DisplayName("正例：多次满减")
-        void positive_multipleReduction() {
+        void positiveMultipleReduction() {
             // 10 * 8 + 10 * 13 + 5 * 20 = 80 + 130 + 100 = 310，满300减30 = 280
             assertEquals(new BigDecimal("280.00"), fruitService.buyAppleStrawberryAndMangoWithFullReduction(10, 10, 5));
         }
 
         @Test
         @DisplayName("边界值：总价恰好在阈值上 = 100.00，应减10")
-        void boundary_exactly100() {
+        void boundaryExactly100() {
             // 用通用方法精确凑出100元：5斤芒果=100
             List<FruitEntity> fruits = List.of(
                     new FruitEntity(MANGO, new BigDecimal("20"), BigDecimal.ONE)
@@ -194,7 +194,7 @@ class FruitServiceTest {
 
         @Test
         @DisplayName("边界值：总价 = 100.01，应减10（超过阈值）")
-        void boundary_justOver100() {
+        void boundaryJustOver100() {
             // 凑出100.01：需通过折扣产生小数
             // 自定义水果单价 0.01元，买10001斤 = 100.01
             List<FruitEntity> fruits = List.of(
@@ -208,7 +208,7 @@ class FruitServiceTest {
 
         @Test
         @DisplayName("边界值：总价 = 99.99，不满100，不减")
-        void boundary_justUnder100() {
+        void boundaryJustUnder100() {
             // 凑出99.99：自定义水果0.01元，买9999斤 = 99.99
             List<FruitEntity> fruits = List.of(
                     new FruitEntity("测试水果", new BigDecimal("0.01"), BigDecimal.ONE)
@@ -221,20 +221,20 @@ class FruitServiceTest {
 
         @Test
         @DisplayName("反例：总价 < 100，不触发满减")
-        void negative_underThreshold() {
+        void negativeUnderThreshold() {
             // 2 * 8 + 3 * 13 + 20 = 16 + 39 + 20 = 75 < 100
             assertEquals(new BigDecimal("75.00"), fruitService.buyAppleStrawberryAndMangoWithFullReduction(2, 3, 1));
         }
 
         @Test
         @DisplayName("边界值：斤数全为0，总价为0")
-        void boundary_zeroWeight() {
+        void boundaryZeroWeight() {
             assertEquals(new BigDecimal("0.00"), fruitService.buyAppleStrawberryAndMangoWithFullReduction(0, 0, 0));
         }
 
         @Test
         @DisplayName("边界值：总价 = 200.00，减2次 = 180")
-        void boundary_exactly200() {
+        void boundaryExactly200() {
             // 10斤芒果 = 200
             List<FruitEntity> fruits = List.of(
                     new FruitEntity(MANGO, new BigDecimal("20"), BigDecimal.ONE)
@@ -246,7 +246,7 @@ class FruitServiceTest {
 
         @Test
         @DisplayName("边界值：总价 = 199.99，只减1次 = 189.99")
-        void boundary_justUnder200() {
+        void boundaryJustUnder200() {
             List<FruitEntity> fruits = List.of(
                     new FruitEntity("测试水果", new BigDecimal("0.01"), BigDecimal.ONE)
             );
